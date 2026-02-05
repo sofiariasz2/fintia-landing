@@ -1,0 +1,172 @@
+.mvp {
+  background: white;
+}
+
+.mvpContent {
+  display: grid;
+  gap: 60px;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .mvpContent {
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+  }
+}
+
+.sectionLabel {
+  display: inline-block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--primary-600);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+}
+
+.mvpDescription {
+  font-size: 1.125rem;
+  margin: 24px 0 40px;
+  line-height: 1.8;
+}
+
+.highlightGrid {
+  display: grid;
+  gap: 24px;
+}
+
+@media (min-width: 480px) {
+  .highlightGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.highlightItem {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.highlightIcon {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  background: var(--primary-50);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-600);
+}
+
+.highlightItem h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--gray-900);
+}
+
+.highlightItem p {
+  font-size: 0.875rem;
+  color: var(--gray-600);
+  line-height: 1.5;
+}
+
+/* Visual */
+.mvpVisual {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.testimonialCard {
+  background: var(--gray-50);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  border: 1px solid var(--gray-100);
+}
+
+.stars {
+  color: #f59e0b;
+  font-size: 1.25rem;
+  margin-bottom: 16px;
+  letter-spacing: 2px;
+}
+
+.testimonialCard blockquote {
+  font-size: 1.1rem;
+  color: var(--gray-700);
+  line-height: 1.7;
+  font-style: italic;
+  margin-bottom: 24px;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.authorAvatar {
+  width: 48px;
+  height: 48px;
+  background: var(--gradient-primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.authorInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.authorName {
+  font-weight: 600;
+  color: var(--gray-900);
+  font-size: 0.95rem;
+}
+
+.authorRole {
+  font-size: 0.85rem;
+  color: var(--gray-500);
+}
+
+.statsCard {
+  background: var(--gradient-primary);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.statValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+}
+
+.statLabel {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.85);
+  margin-top: 4px;
+}
+
+.statDivider {
+  width: 1px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.3);
+}

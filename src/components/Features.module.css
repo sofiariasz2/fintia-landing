@@ -1,0 +1,144 @@
+.features {
+  background: var(--gray-50);
+}
+
+.sectionLabel {
+  display: inline-block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--primary-600);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+}
+
+.featuresWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.planSection {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.planHeader {
+  text-align: center;
+}
+
+.planBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: var(--primary-50);
+  color: var(--primary-700);
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  border: 1px solid var(--primary-200);
+}
+
+.premiumBadge {
+  background: var(--accent-50);
+  color: var(--accent-600);
+  border-color: var(--accent-200);
+}
+
+.planHeader h3 {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+
+.planHeader p {
+  font-size: 1rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.featureGrid {
+  display: grid;
+  gap: 20px;
+}
+
+@media (min-width: 640px) {
+  .featureGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .featureGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.premium .featureGrid {
+  grid-template-columns: repeat(1, 1fr);
+}
+
+@media (min-width: 640px) {
+  .premium .featureGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .premium .featureGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.featureCard {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  border: 1px solid var(--gray-100);
+  transition: all 0.3s ease;
+}
+
+.featureCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.premiumCard {
+  background: white;
+  border: 1px solid var(--accent-100);
+}
+
+.premiumCard:hover {
+  border-color: var(--accent-300);
+}
+
+.featureIcon {
+  width: 52px;
+  height: 52px;
+  background: var(--primary-50);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-600);
+  margin-bottom: 20px;
+}
+
+.premiumIcon {
+  background: var(--accent-50);
+  color: var(--accent-600);
+}
+
+.featureCard h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--gray-900);
+}
+
+.featureCard p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+}

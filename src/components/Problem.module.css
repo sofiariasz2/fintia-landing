@@ -1,0 +1,64 @@
+.problem {
+  background: var(--gray-50);
+}
+
+.sectionLabel {
+  display: inline-block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--error);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+}
+
+.highlight {
+  color: var(--error);
+}
+
+.problemGrid {
+  display: grid;
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .problemGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+}
+
+.problemCard {
+  background: white;
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  text-align: center;
+  border: 1px solid var(--gray-100);
+  transition: all 0.3s ease;
+}
+
+.problemCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.iconWrapper {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+}
+
+.problemCard h3 {
+  font-size: 1.25rem;
+  margin-bottom: 12px;
+  color: var(--gray-900);
+}
+
+.problemCard p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+}

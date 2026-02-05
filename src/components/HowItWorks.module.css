@@ -1,0 +1,151 @@
+.howItWorks {
+  background: white;
+}
+
+.sectionLabel {
+  display: inline-block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--primary-600);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+}
+
+.stepsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 60px;
+}
+
+@media (min-width: 1024px) {
+  .stepsContainer {
+    flex-direction: row;
+    gap: 0;
+  }
+}
+
+.stepWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+@media (min-width: 1024px) {
+  .stepWrapper {
+    flex-direction: row;
+  }
+}
+
+.stepCard {
+  background: var(--gray-50);
+  border-radius: var(--radius-xl);
+  padding: 40px 32px;
+  text-align: center;
+  position: relative;
+  flex: 1;
+  width: 100%;
+  max-width: 360px;
+  transition: all 0.3s ease;
+}
+
+.stepCard:hover {
+  background: white;
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+}
+
+.stepNumber {
+  position: absolute;
+  top: 20px;
+  left: 24px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--primary-500);
+  background: var(--primary-50);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+
+.stepIcon {
+  width: 72px;
+  height: 72px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin: 0 auto 24px;
+}
+
+.stepCard h3 {
+  font-size: 1.25rem;
+  margin-bottom: 12px;
+  color: var(--gray-900);
+}
+
+.stepCard p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.stepConnector {
+  display: none;
+  color: var(--gray-300);
+  padding: 0 24px;
+}
+
+@media (min-width: 1024px) {
+  .stepConnector {
+    display: flex;
+    align-items: center;
+  }
+}
+
+/* CTA Box */
+.ctaBox {
+  background: var(--gradient-primary);
+  border-radius: var(--radius-xl);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .ctaBox {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+    padding: 48px 56px;
+  }
+}
+
+.ctaContent h3 {
+  font-size: 1.5rem;
+  color: white;
+  margin-bottom: 8px;
+}
+
+.ctaContent p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+}
+
+.ctaBox .btn {
+  background: white;
+  color: var(--primary-600);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+}
+
+.ctaBox .btn:hover {
+  background: var(--gray-50);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
