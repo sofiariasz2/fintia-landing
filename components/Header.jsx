@@ -1,25 +1,27 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Menu, X, LogOut } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
-import styles from './Header.module.css';
+'use client'
+
+import { useState } from 'react'
+import Link from 'next/link'
+import { Menu, X, LogOut } from 'lucide-react'
+import { useAuth } from '@/lib/auth/AuthContext'
+import styles from './Header.module.css'
 
 const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { user, signOut } = useAuth();
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const { user, signOut } = useAuth()
 
   const handleSignOut = async () => {
     try {
-      await signOut();
+      await signOut()
     } catch (error) {
-      console.error('Error signing out:', error);
+      console.error('Error signing out:', error)
     }
-  };
+  }
 
   return (
     <header className={styles.header}>
       <div className={`container ${styles.headerContainer}`}>
-        <Link to="/" className={styles.logo}>
+        <Link href="/" className={styles.logo}>
           <div className={styles.logoIcon}>
             <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
               <rect width="32" height="32" rx="8" fill="url(#logoGradient)" />
@@ -58,8 +60,8 @@ const Header = () => {
             </>
           ) : (
             <>
-              <Link to="/login" className={styles.loginLink}>Iniciar sesión</Link>
-              <Link to="/signup" className="btn btn-primary">Comenzar gratis</Link>
+              <Link href="/login" className={styles.loginLink}>Iniciar sesión</Link>
+              <Link href="/signup" className="btn btn-primary">Comenzar gratis</Link>
             </>
           )}
         </div>
@@ -93,9 +95,9 @@ const Header = () => {
               </>
             ) : (
               <>
-                <Link to="/login" className={styles.mobileNavLink}>Iniciar sesión</Link>
+                <Link href="/login" className={styles.mobileNavLink}>Iniciar sesión</Link>
                 <Link
-                  to="/signup"
+                  href="/signup"
                   className="btn btn-primary"
                   style={{ width: '100%', marginTop: '16px' }}
                 >
@@ -107,7 +109,7 @@ const Header = () => {
         </div>
       )}
     </header>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

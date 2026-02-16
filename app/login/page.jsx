@@ -1,38 +1,42 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Mail, Lock, ArrowRight, AlertCircle, Loader2 } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
-import styles from './Login.module.css';
+'use client'
 
-const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-  const { signIn } = useAuth();
-  const navigate = useNavigate();
+import { useState } from 'react'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { Mail, Lock, ArrowRight, AlertCircle, Loader2 } from 'lucide-react'
+import { useAuth } from '@/lib/auth/AuthContext'
+import styles from '@/pages/Login.module.css'
+
+export default function LoginPage() {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
+  const { signIn } = useAuth()
+  const router = useRouter()
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-    setLoading(true);
+    e.preventDefault()
+    setError('')
+    setLoading(true)
 
     try {
-      await signIn(email, password);
-      navigate('/');
+      await signIn(email, password)
+      router.push('/')
+      router.refresh()
     } catch (err) {
-      setError(err.message || 'Error al iniciar sesión. Verifica tus credenciales.');
+      setError(err.message || 'Error al iniciar sesión. Verifica tus credenciales.')
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <div className={styles.authPage}>
       <div className={styles.authContainer}>
         <div className={styles.authCard}>
           <div className={styles.authHeader}>
-            <Link to="/" className={styles.logo}>
+            <Link href="/" className={styles.logo}>
               <div className={styles.logoIcon}>
                 <svg width="40" height="40" viewBox="0 0 32 32" fill="none">
                   <rect width="32" height="32" rx="8" fill="url(#logoGradientLogin)" />
@@ -119,7 +123,7 @@ const Login = () => {
           <div className={styles.authFooter}>
             <p>
               ¿No tienes cuenta?{' '}
-              <Link to="/signup">Crear cuenta gratis</Link>
+              <Link href="/signup">Crear cuenta gratis</Link>
             </p>
           </div>
         </div>
@@ -149,7 +153,5 @@ const Login = () => {
         </div>
       </div>
     </div>
-  );
-};
-
-export default Login;
+  )
+}

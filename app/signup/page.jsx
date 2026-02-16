@@ -1,44 +1,47 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Mail, Lock, ArrowRight, AlertCircle, Loader2, CheckCircle } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
-import styles from './Signup.module.css';
+'use client'
 
-const Signup = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const { signUp } = useAuth();
-  const navigate = useNavigate();
+import { useState } from 'react'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { Mail, Lock, ArrowRight, AlertCircle, Loader2, CheckCircle } from 'lucide-react'
+import { useAuth } from '@/lib/auth/AuthContext'
+import styles from '@/pages/Signup.module.css'
+
+export default function SignupPage() {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [error, setError] = useState('')
+  const [success, setSuccess] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const { signUp } = useAuth()
+  const router = useRouter()
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
+    e.preventDefault()
+    setError('')
 
     if (password !== confirmPassword) {
-      setError('Las contraseñas no coinciden');
-      return;
+      setError('Las contraseñas no coinciden')
+      return
     }
 
     if (password.length < 6) {
-      setError('La contraseña debe tener al menos 6 caracteres');
-      return;
+      setError('La contraseña debe tener al menos 6 caracteres')
+      return
     }
 
-    setLoading(true);
+    setLoading(true)
 
     try {
-      await signUp(email, password);
-      setSuccess(true);
+      await signUp(email, password)
+      setSuccess(true)
     } catch (err) {
-      setError(err.message || 'Error al crear la cuenta. Intenta nuevamente.');
+      setError(err.message || 'Error al crear la cuenta. Intenta nuevamente.')
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   if (success) {
     return (
@@ -53,14 +56,14 @@ const Signup = () => {
               Hemos enviado un enlace de confirmación a <strong>{email}</strong>.
               Por favor revisa tu bandeja de entrada y confirma tu correo para activar tu cuenta.
             </p>
-            <Link to="/login" className={styles.successBtn}>
+            <Link href="/login" className={styles.successBtn}>
               Ir a iniciar sesión
               <ArrowRight size={20} />
             </Link>
           </div>
         </div>
       </div>
-    );
+    )
   }
 
   return (
@@ -68,7 +71,7 @@ const Signup = () => {
       <div className={styles.authContainer}>
         <div className={styles.authCard}>
           <div className={styles.authHeader}>
-            <Link to="/" className={styles.logo}>
+            <Link href="/" className={styles.logo}>
               <div className={styles.logoIcon}>
                 <svg width="40" height="40" viewBox="0 0 32 32" fill="none">
                   <rect width="32" height="32" rx="8" fill="url(#logoGradientSignup)" />
@@ -175,7 +178,7 @@ const Signup = () => {
           <div className={styles.authFooter}>
             <p>
               ¿Ya tienes cuenta?{' '}
-              <Link to="/login">Iniciar sesión</Link>
+              <Link href="/login">Iniciar sesión</Link>
             </p>
           </div>
         </div>
@@ -205,7 +208,5 @@ const Signup = () => {
         </div>
       </div>
     </div>
-  );
-};
-
-export default Signup;
+  )
+}
