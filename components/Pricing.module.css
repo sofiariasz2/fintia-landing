@@ -29,12 +29,18 @@
 .pricingCard {
   background: white;
   border-radius: var(--radius-xl);
-  padding: 40px 32px;
+  padding: 32px 24px;
   border: 2px solid var(--gray-100);
   position: relative;
   display: flex;
   flex-direction: column;
   transition: all 0.3s ease;
+}
+
+@media (min-width: 480px) {
+  .pricingCard {
+    padding: 40px 32px;
+  }
 }
 
 .pricingCard:hover {
@@ -66,15 +72,29 @@
 
 .planHeader {
   text-align: center;
-  margin-bottom: 32px;
-  padding-bottom: 32px;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
   border-bottom: 1px solid var(--gray-100);
 }
 
+@media (min-width: 480px) {
+  .planHeader {
+    margin-bottom: 32px;
+    padding-bottom: 32px;
+  }
+}
+
 .planHeader h3 {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   color: var(--gray-900);
-  margin-bottom: 16px;
+  margin-bottom: 12px;
+}
+
+@media (min-width: 480px) {
+  .planHeader h3 {
+    font-size: 1.25rem;
+    margin-bottom: 16px;
+  }
 }
 
 .priceWrapper {
@@ -86,10 +106,16 @@
 }
 
 .price {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 800;
   color: var(--gray-900);
   line-height: 1;
+}
+
+@media (min-width: 480px) {
+  .price {
+    font-size: 3rem;
+  }
 }
 
 .period {
@@ -132,21 +158,39 @@
 /* Guarantee */
 .guarantee {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 20px;
+  text-align: center;
+  gap: 16px;
   background: white;
   border-radius: var(--radius-lg);
-  padding: 24px 32px;
-  margin-top: 48px;
+  padding: 24px 20px;
+  margin-top: 40px;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
   border: 1px solid var(--gray-100);
 }
 
+@media (min-width: 480px) {
+  .guarantee {
+    flex-direction: row;
+    text-align: left;
+    gap: 20px;
+    padding: 24px 32px;
+    margin-top: 48px;
+  }
+}
+
 .guaranteeIcon {
-  font-size: 2.5rem;
+  font-size: 2rem;
   flex-shrink: 0;
+}
+
+@media (min-width: 480px) {
+  .guaranteeIcon {
+    font-size: 2.5rem;
+  }
 }
 
 .guaranteeContent h4 {

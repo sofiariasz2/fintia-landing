@@ -1,0 +1,385 @@
+.dashboard {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Page Header */
+.pageHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+@media (min-width: 640px) {
+  .pageHeader {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.pageHeader h1 {
+  font-size: 1.5rem;
+  color: var(--gray-900);
+  margin-bottom: 4px;
+}
+
+@media (min-width: 640px) {
+  .pageHeader h1 {
+    font-size: 1.75rem;
+  }
+}
+
+.pageHeader p {
+  font-size: 0.9rem;
+  color: var(--gray-500);
+}
+
+.dateFilter select {
+  padding: 10px 16px;
+  font-size: 0.9rem;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  background: white;
+  color: var(--gray-700);
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.dateFilter select:focus {
+  outline: none;
+  border-color: var(--primary-500);
+}
+
+/* Stats Grid */
+.statsGrid {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+@media (min-width: 640px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .statsGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.statCard {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  border: 1px solid var(--gray-100);
+}
+
+.statHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.statIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.statCard.green .statIcon {
+  background: var(--primary-50);
+  color: var(--primary-600);
+}
+
+.statCard.blue .statIcon {
+  background: #eff6ff;
+  color: #3b82f6;
+}
+
+.statCard.red .statIcon {
+  background: #fef2f2;
+  color: #ef4444;
+}
+
+.statCard.purple .statIcon {
+  background: var(--accent-50);
+  color: var(--accent-600);
+}
+
+.statMenu {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--gray-400);
+  padding: 4px;
+}
+
+.statMenu:hover {
+  color: var(--gray-600);
+}
+
+.statTitle {
+  font-size: 0.85rem;
+  color: var(--gray-500);
+  margin-bottom: 4px;
+}
+
+.statValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 8px;
+}
+
+@media (min-width: 640px) {
+  .statValue {
+    font-size: 1.75rem;
+  }
+}
+
+.statChange {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.statChange.positive {
+  color: var(--success);
+}
+
+.statChange.negative {
+  color: var(--error);
+}
+
+/* Content Grid */
+.contentGrid {
+  display: grid;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+@media (min-width: 1024px) {
+  .contentGrid {
+    grid-template-columns: 1.2fr 1fr;
+  }
+}
+
+/* Card */
+.card {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  border: 1px solid var(--gray-100);
+}
+
+@media (min-width: 640px) {
+  .card {
+    padding: 24px;
+  }
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.cardHeader h2 {
+  font-size: 1.1rem;
+  color: var(--gray-900);
+}
+
+.viewAll {
+  font-size: 0.875rem;
+  color: var(--primary-600);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.viewAll:hover {
+  text-decoration: underline;
+}
+
+/* Transactions */
+.transactionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.transactionItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.transactionIcon {
+  width: 44px;
+  height: 44px;
+  background: var(--gray-50);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.transactionInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.transactionName {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--gray-900);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.transactionCategory {
+  font-size: 0.8rem;
+  color: var(--gray-500);
+}
+
+.transactionAmount {
+  font-size: 0.95rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.transactionAmount.positive {
+  color: var(--success);
+}
+
+.transactionAmount.negative {
+  color: var(--gray-900);
+}
+
+/* Budgets */
+.budgetsList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.budgetItem {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.budgetHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.budgetName {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--gray-900);
+}
+
+.budgetAmount {
+  font-size: 0.85rem;
+  color: var(--gray-500);
+}
+
+.budgetBar {
+  height: 8px;
+  background: var(--gray-100);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.budgetProgress {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.3s ease;
+}
+
+.budgetPercentage {
+  font-size: 0.75rem;
+  color: var(--gray-500);
+}
+
+.budgetPercentage.warning {
+  color: var(--warning);
+  font-weight: 500;
+}
+
+/* Quick Actions */
+.quickActions {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  border: 1px solid var(--gray-100);
+}
+
+@media (min-width: 640px) {
+  .quickActions {
+    padding: 24px;
+  }
+}
+
+.quickActions h3 {
+  font-size: 1.1rem;
+  color: var(--gray-900);
+  margin-bottom: 16px;
+}
+
+.actionsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+@media (min-width: 640px) {
+  .actionsGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.actionCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 20px 16px;
+  background: var(--gray-50);
+  border: 1px solid var(--gray-100);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.actionCard:hover {
+  background: var(--primary-50);
+  border-color: var(--primary-200);
+}
+
+.actionIcon {
+  font-size: 1.5rem;
+}
+
+.actionCard span:last-child {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--gray-700);
+  text-align: center;
+}

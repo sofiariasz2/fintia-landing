@@ -1,7 +1,13 @@
+'use client'
+
+import Link from 'next/link';
 import { ArrowRight, Play } from 'lucide-react';
+import { useAuth } from '@/lib/auth/AuthContext';
 import styles from './Hero.module.css';
 
 const Hero = () => {
+  const { user } = useAuth();
+
   return (
     <section className={styles.hero}>
       <div className={`container ${styles.heroContainer}`}>
@@ -22,10 +28,17 @@ const Hero = () => {
           </p>
 
           <div className={styles.ctaGroup}>
-            <a href="#" className="btn btn-primary">
-              Comenzar gratis
-              <ArrowRight size={18} />
-            </a>
+            {user ? (
+              <Link href="/dashboard" className="btn btn-primary">
+                Ir al Dashboard
+                <ArrowRight size={18} />
+              </Link>
+            ) : (
+              <Link href="/signup" className="btn btn-primary">
+                Comenzar gratis
+                <ArrowRight size={18} />
+              </Link>
+            )}
             <a href="#pricing" className="btn btn-secondary">
               <Play size={18} />
               Ver versión Premium

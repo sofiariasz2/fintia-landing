@@ -1,9 +1,16 @@
 .hero {
   position: relative;
-  padding-top: 120px;
-  padding-bottom: 80px;
+  padding-top: 100px;
+  padding-bottom: 60px;
   min-height: 100vh;
   overflow: hidden;
+}
+
+@media (min-width: 480px) {
+  .hero {
+    padding-top: 110px;
+    padding-bottom: 70px;
+  }
 }
 
 @media (min-width: 768px) {
@@ -15,10 +22,22 @@
 
 .heroContainer {
   display: grid;
-  gap: 60px;
+  gap: 40px;
   align-items: center;
   position: relative;
   z-index: 1;
+}
+
+@media (min-width: 480px) {
+  .heroContainer {
+    gap: 50px;
+  }
+}
+
+@media (min-width: 768px) {
+  .heroContainer {
+    gap: 60px;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -41,15 +60,24 @@
 .badge {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
+  gap: 6px;
+  padding: 6px 12px;
   background: var(--primary-50);
   color: var(--primary-700);
   border-radius: var(--radius-full);
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   font-weight: 500;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
   border: 1px solid var(--primary-200);
+}
+
+@media (min-width: 480px) {
+  .badge {
+    gap: 8px;
+    padding: 8px 16px;
+    font-size: 0.875rem;
+    margin-bottom: 24px;
+  }
 }
 
 .badgeDot {
@@ -75,15 +103,26 @@
 }
 
 .subheadline {
-  font-size: 1.125rem;
+  font-size: 1rem;
   color: var(--gray-600);
-  margin-bottom: 32px;
+  margin-bottom: 28px;
   max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 480px) {
+  .subheadline {
+    font-size: 1.125rem;
+    margin-bottom: 32px;
+  }
 }
 
 @media (min-width: 1024px) {
   .subheadline {
     font-size: 1.25rem;
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 
@@ -111,7 +150,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 24px;
+  gap: 16px;
+}
+
+@media (min-width: 480px) {
+  .trustIndicators {
+    gap: 24px;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -133,20 +178,38 @@
 }
 
 .trustNumber {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--gray-900);
 }
 
+@media (min-width: 480px) {
+  .trustNumber {
+    font-size: 1.5rem;
+  }
+}
+
 .trustLabel {
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   color: var(--gray-500);
+}
+
+@media (min-width: 480px) {
+  .trustLabel {
+    font-size: 0.875rem;
+  }
 }
 
 .trustDivider {
   width: 1px;
-  height: 40px;
+  height: 32px;
   background: var(--gray-200);
+}
+
+@media (min-width: 480px) {
+  .trustDivider {
+    height: 40px;
+  }
 }
 
 /* Hero Visual */
@@ -215,25 +278,44 @@
 }
 
 .mockupContent {
-  padding: 20px;
+  padding: 12px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px;
+}
+
+@media (min-width: 480px) {
+  .mockupContent {
+    padding: 20px;
+    gap: 20px;
+  }
 }
 
 .mockupStats {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 8px;
+}
+
+@media (min-width: 480px) {
+  .mockupStats {
+    gap: 12px;
+  }
 }
 
 .statCard {
   background: var(--gray-50);
   border-radius: var(--radius-md);
-  padding: 16px;
+  padding: 12px;
   display: flex;
   flex-direction: column;
   gap: 4px;
+}
+
+@media (min-width: 480px) {
+  .statCard {
+    padding: 16px;
+  }
 }
 
 .statLabel {
@@ -243,15 +325,27 @@
 }
 
 .statValue {
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--gray-900);
 }
 
+@media (min-width: 480px) {
+  .statValue {
+    font-size: 1.25rem;
+  }
+}
+
 .statValueRed {
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--error);
+}
+
+@media (min-width: 480px) {
+  .statValueRed {
+    font-size: 1.25rem;
+  }
 }
 
 .statChange {
@@ -287,9 +381,16 @@
 
 .chartBar {
   display: grid;
-  grid-template-columns: 80px 1fr 50px;
+  grid-template-columns: 60px 1fr 40px;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
+}
+
+@media (min-width: 480px) {
+  .chartBar {
+    grid-template-columns: 80px 1fr 50px;
+    gap: 12px;
+  }
 }
 
 .barLabel {
