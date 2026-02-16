@@ -383,3 +383,158 @@
   color: var(--gray-700);
   text-align: center;
 }
+
+/* Header Actions */
+.headerActions {
+  display: flex;
+  gap: 12px;
+}
+
+.connectButton,
+.syncButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.connectButton {
+  background: var(--primary-600);
+  color: white;
+  border: none;
+}
+
+.connectButton:hover {
+  background: var(--primary-700);
+}
+
+.syncButton {
+  background: white;
+  color: var(--gray-700);
+  border: 1px solid var(--gray-200);
+}
+
+.syncButton:hover {
+  background: var(--gray-50);
+  border-color: var(--gray-300);
+}
+
+.syncButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Auth Banner */
+.authBanner {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  background: linear-gradient(135deg, var(--primary-50), var(--accent-50));
+  border: 1px solid var(--primary-200);
+  border-radius: var(--radius-lg);
+  margin-bottom: 24px;
+}
+
+@media (min-width: 768px) {
+  .authBanner {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.authBanner > svg {
+  color: var(--primary-600);
+  flex-shrink: 0;
+}
+
+.authBanner > div {
+  flex: 1;
+}
+
+.authBanner h3 {
+  font-size: 1rem;
+  color: var(--gray-900);
+  margin-bottom: 4px;
+}
+
+.authBanner p {
+  font-size: 0.9rem;
+  color: var(--gray-600);
+}
+
+.connectButtonLarge {
+  padding: 12px 24px;
+  background: var(--primary-600);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.connectButtonLarge:hover {
+  background: var(--primary-700);
+}
+
+/* Error Banner */
+.errorBanner {
+  padding: 16px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: var(--radius-md);
+  margin-bottom: 24px;
+}
+
+.errorBanner p {
+  color: #dc2626;
+  font-size: 0.9rem;
+}
+
+/* Loading & Empty States */
+.loadingState,
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--gray-500);
+}
+
+.loadingState p,
+.emptyState p {
+  font-size: 0.9rem;
+  margin-top: 12px;
+}
+
+/* Spinning animation */
+.spinning {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.authStatus {
+  text-align: center;
+  padding: 20px;
+  color: var(--gray-500);
+}

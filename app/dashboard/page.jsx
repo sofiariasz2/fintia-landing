@@ -1,5 +1,7 @@
 'use client'
 
+import { useState, useEffect } from 'react';
+import { useSession, signIn } from 'next-auth/react';
 import {
   TrendingUp,
   TrendingDown,
@@ -9,87 +11,46 @@ import {
   ArrowUpRight,
   ArrowDownRight,
   MoreHorizontal,
+  RefreshCw,
+  Mail,
 } from 'lucide-react';
 import DashboardLayout from '@/components/DashboardLayout';
 import styles from './page.module.css';
 
-const statsCards = [
-  {
-    title: 'Balance Total',
-    value: '$12,450.00',
-    change: '+8.2%',
-    changeType: 'positive',
-    icon: DollarSign,
-    color: 'green',
-  },
-  {
-    title: 'Ingresos del Mes',
-    value: '$4,200.00',
-    change: '+12.5%',
-    changeType: 'positive',
-    icon: TrendingUp,
-    color: 'blue',
-  },
-  {
-    title: 'Gastos del Mes',
-    value: '$2,340.00',
-    change: '-5.3%',
-    changeType: 'negative',
-    icon: CreditCard,
-    color: 'red',
-  },
-  {
-    title: 'Ahorro',
-    value: '$1,860.00',
-    change: '+24.1%',
-    changeType: 'positive',
-    icon: PiggyBank,
-    color: 'purple',
-  },
-];
+const getCategoryIcon = (category) => {
+  const icons = {
+    purchase: '🛒',
+    card_payment: '💳',
+    transfer: '💸',
+    default: '💰',
+  };
+  return icons[category] || icons.default;
+};
 
-const recentTransactions = [
-  {
-    id: 1,
-    name: 'Supermercado',
-    category: 'Comida',
-    amount: -85.50,
-    date: 'Hoy, 14:30',
-    icon: '🛒',
-  },
-  {
-    id: 2,
-    name: 'Salario',
-    category: 'Ingresos',
-    amount: 3500.00,
-    date: 'Ayer',
-    icon: '💰',
-  },
-  {
-    id: 3,
-    name: 'Netflix',
-    category: 'Entretenimiento',
-    amount: -15.99,
-    date: '20 Feb',
-    icon: '🎬',
-  },
-  {
-    id: 4,
-    name: 'Uber',
-    category: 'Transporte',
-    amount: -24.00,
-    date: '19 Feb',
-    icon: '🚗',
-  },
-  {
-    id: 5,
-    name: 'Freelance',
-    category: 'Ingresos',
-    amount: 750.00,
-    date: '18 Feb',
-    icon: '💼',
-  },
-];
+const formatCurrency = (amount) => {
+  return new Intl.NumberFormat('es-CO', {
+    style: 'currency',
+    currency: 'COP',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(amount);
+};
+
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  const now = new Date();
+  const diffDays = Math.floor((now - date) / (1000 * 60 * 60 * 24));
+
+  if (diffDays === 0) {
+    return `Hoy, ${date.toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' })}`;
+  } else if (diffDays === 1) {
+    return 'Ayer';
+  } else if (diffDays < 7) {
+    return `Hace ${diffDays} días`;
+  } else {
+    return date.toLocaleDateString('es-CO', { day: 'numeric', month: 'short' });
+  }
+};
 
 const budgets = [
   { name: 'Comida', spent: 450, total: 600, color: '#22c55e' },
@@ -99,6 +60,96 @@ const budgets = [
 ];
 
 export default function DashboardPage() {
+  const { data: session, status } = useSession();
+  const [transactions, setTransactions] = useState([]);
+  const [summary, setSummary] = useState({ totalIncome: 0, totalExpenses: 0, balance: 0 });
+  const [loading, setLoading] = useState(false);
+  const [syncing, setSyncing] = useState(false);
+  const [error, setError] = useState(null);
+
+  const fetchTransactions = async () => {
+    if (!session?.accessToken) return;
+
+    setLoading(true);
+    try {
+      const res = await fetch('/api/gmail/transactions');
+      const data = await res.json();
+
+      if (data.transactions) {
+        setTransactions(data.transactions);
+
+        // Calculate summary
+        const income = data.transactions
+          .filter(t => t.type === 'income')
+          .reduce((sum, t) => sum + t.amount, 0);
+        const expenses = data.transactions
+          .filter(t => t.type === 'expense')
+          .reduce((sum, t) => sum + t.amount, 0);
+
+        setSummary({
+          totalIncome: income,
+          totalExpenses: expenses,
+          balance: income - expenses,
+        });
+      }
+    } catch (err) {
+      console.error('Error fetching transactions:', err);
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const syncEmails = async () => {
+    setSyncing(true);
+    try {
+      await fetchTransactions();
+    } finally {
+      setSyncing(false);
+    }
+  };
+
+  useEffect(() => {
+    if (session?.accessToken) {
+      fetchTransactions();
+    }
+  }, [session]);
+
+  const statsCards = [
+    {
+      title: 'Balance Total',
+      value: formatCurrency(summary.balance),
+      change: summary.balance >= 0 ? '+' : '',
+      changeType: summary.balance >= 0 ? 'positive' : 'negative',
+      icon: DollarSign,
+      color: 'green',
+    },
+    {
+      title: 'Ingresos',
+      value: formatCurrency(summary.totalIncome),
+      change: '',
+      changeType: 'positive',
+      icon: TrendingUp,
+      color: 'blue',
+    },
+    {
+      title: 'Gastos',
+      value: formatCurrency(summary.totalExpenses),
+      change: '',
+      changeType: 'negative',
+      icon: CreditCard,
+      color: 'red',
+    },
+    {
+      title: 'Transacciones',
+      value: transactions.length.toString(),
+      change: '',
+      changeType: 'positive',
+      icon: PiggyBank,
+      color: 'purple',
+    },
+  ];
+
   return (
     <DashboardLayout>
       <div className={styles.dashboard}>
@@ -108,14 +159,53 @@ export default function DashboardPage() {
             <h1>Dashboard</h1>
             <p>Bienvenido de nuevo. Aquí está el resumen de tus finanzas.</p>
           </div>
-          <div className={styles.dateFilter}>
-            <select defaultValue="month">
-              <option value="week">Esta semana</option>
-              <option value="month">Este mes</option>
-              <option value="year">Este año</option>
-            </select>
+          <div className={styles.headerActions}>
+            {!session?.accessToken ? (
+              <button
+                onClick={() => signIn('google')}
+                className={styles.connectButton}
+              >
+                <Mail size={18} />
+                Conectar Gmail
+              </button>
+            ) : (
+              <button
+                onClick={syncEmails}
+                className={styles.syncButton}
+                disabled={syncing}
+              >
+                <RefreshCw size={18} className={syncing ? styles.spinning : ''} />
+                {syncing ? 'Sincronizando...' : 'Sincronizar'}
+              </button>
+            )}
           </div>
         </div>
+
+        {/* Google Auth Status */}
+        {status === 'loading' && (
+          <div className={styles.authStatus}>
+            <p>Cargando...</p>
+          </div>
+        )}
+
+        {!session?.accessToken && status !== 'loading' && (
+          <div className={styles.authBanner}>
+            <Mail size={24} />
+            <div>
+              <h3>Conecta tu correo de Gmail</h3>
+              <p>Para importar automáticamente tus transacciones de Bancolombia, conecta tu cuenta de Gmail.</p>
+            </div>
+            <button onClick={() => signIn('google')} className={styles.connectButtonLarge}>
+              Conectar Gmail
+            </button>
+          </div>
+        )}
+
+        {error && (
+          <div className={styles.errorBanner}>
+            <p>Error: {error}</p>
+          </div>
+        )}
 
         {/* Stats Cards */}
         <div className={styles.statsGrid}>
@@ -132,14 +222,16 @@ export default function DashboardPage() {
               <div className={styles.statContent}>
                 <p className={styles.statTitle}>{stat.title}</p>
                 <p className={styles.statValue}>{stat.value}</p>
-                <div className={`${styles.statChange} ${styles[stat.changeType]}`}>
-                  {stat.changeType === 'positive' ? (
-                    <ArrowUpRight size={16} />
-                  ) : (
-                    <ArrowDownRight size={16} />
-                  )}
-                  <span>{stat.change} vs mes pasado</span>
-                </div>
+                {stat.change && (
+                  <div className={`${styles.statChange} ${styles[stat.changeType]}`}>
+                    {stat.changeType === 'positive' ? (
+                      <ArrowUpRight size={16} />
+                    ) : (
+                      <ArrowDownRight size={16} />
+                    )}
+                    <span>{stat.change} vs mes pasado</span>
+                  </div>
+                )}
               </div>
             </div>
           ))}
@@ -156,27 +248,43 @@ export default function DashboardPage() {
               </a>
             </div>
             <div className={styles.transactionsList}>
-              {recentTransactions.map((transaction) => (
-                <div key={transaction.id} className={styles.transactionItem}>
-                  <div className={styles.transactionIcon}>
-                    {transaction.icon}
-                  </div>
-                  <div className={styles.transactionInfo}>
-                    <p className={styles.transactionName}>{transaction.name}</p>
-                    <p className={styles.transactionCategory}>
-                      {transaction.category} · {transaction.date}
+              {loading ? (
+                <div className={styles.loadingState}>
+                  <RefreshCw size={24} className={styles.spinning} />
+                  <p>Cargando transacciones...</p>
+                </div>
+              ) : transactions.length === 0 ? (
+                <div className={styles.emptyState}>
+                  <p>No hay transacciones todavía.</p>
+                  {!session?.accessToken && (
+                    <p>Conecta tu Gmail para importar transacciones de Bancolombia.</p>
+                  )}
+                </div>
+              ) : (
+                transactions.slice(0, 5).map((transaction, index) => (
+                  <div key={transaction.emailId || index} className={styles.transactionItem}>
+                    <div className={styles.transactionIcon}>
+                      {getCategoryIcon(transaction.category)}
+                    </div>
+                    <div className={styles.transactionInfo}>
+                      <p className={styles.transactionName}>{transaction.description}</p>
+                      <p className={styles.transactionCategory}>
+                        {transaction.category === 'purchase' ? 'Compra' :
+                         transaction.category === 'card_payment' ? 'Abono tarjeta' :
+                         transaction.category === 'transfer' ? 'Transferencia' : transaction.category} · {formatDate(transaction.date)}
+                      </p>
+                    </div>
+                    <p
+                      className={`${styles.transactionAmount} ${
+                        transaction.type === 'income' ? styles.positive : styles.negative
+                      }`}
+                    >
+                      {transaction.type === 'income' ? '+' : '-'}
+                      {formatCurrency(transaction.amount)}
                     </p>
                   </div>
-                  <p
-                    className={`${styles.transactionAmount} ${
-                      transaction.amount > 0 ? styles.positive : styles.negative
-                    }`}
-                  >
-                    {transaction.amount > 0 ? '+' : ''}
-                    ${Math.abs(transaction.amount).toFixed(2)}
-                  </p>
-                </div>
-              ))}
+                ))
+              )}
             </div>
           </div>
 
